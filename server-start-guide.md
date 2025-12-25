@@ -92,21 +92,36 @@ app.listen(PORT, () => {
 **src/config/db.js**
 
 ```javascript
+// const mongoose = require("mongoose");
+
+// const connectDB = async () => {
+//   try {
+//     const conn = await mongoose.connect(process.env.MONGO_URI, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
+//     console.log(`MongoDB Connected: ${conn.connection.host}`);
+//   } catch (error) {
+//     console.error(`Error: ${error.message}`);
+//     process.exit(1);
+//   }
+// };
+
+// module.exports = connectDB;
+
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    // For local MongoDB
+    const conn = await mongoose.connect("mongodb://127.0.0.1:27017/yourdbname");
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);
+    console.log("Make sure MongoDB is running: mongod");
     process.exit(1);
   }
-};
-
+};                             
 module.exports = connectDB;
 ```
 
@@ -408,3 +423,13 @@ npm install morgan
 10. Set up database backups
 
 Your backend server is now ready! You can connect your React frontend to this backend by making API calls to `http://localhost:5000/api`.
+
+<!--
+
+Locally (Recommended): Install it as a development dependency within your project directory. This is the preferred method as it ensures all developers use the same version.
+
+npm install --save-dev nodemon
+
+
+
+ -->
